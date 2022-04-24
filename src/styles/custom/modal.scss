@@ -1,0 +1,39 @@
+.detail-content > .modal-header {
+  border-bottom: 0px;
+}
+
+.detail-content > .modal-header > .modal-title button {
+  color: #969696;
+  text-decoration: none;
+  padding: 0px 10px 0 0;
+  font-size: 0.965rem;
+}
+
+.detail-content > .modal-header > .modal-title button:hover {
+  color: #2f353a;
+}
+
+.detail-content > .modal-body > h2 {
+  text-align: center;
+  padding-bottom: 25px;
+  color: #515458;
+}
+
+.detail-content > .modal-body label {
+  margin-bottom: 0;
+  color: #969696;
+}
+
+.detail-content > .modal-body p {
+  display: inline;
+  font-size: 1.05rem;
+  color: #515458;
+}
+
+.modal-description-text {
+  font-size: 18px;
+  color: #515458;
+  margin-top: 10px;
+  margin-bottom: 25px;
+  line-height: 1.25rem;
+}

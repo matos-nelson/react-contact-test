@@ -1,0 +1,30 @@
+div.datatable_wrapper table thead {
+  cursor: pointer;
+  position: relative;
+}
+
+div.datatable_wrapper .pagination {
+  float: right;
+}
+
+div.datatable_wrapper div.datatable_filter {
+  text-align: right;
+}
+
+div.dataTables_wrapper div.dataTables_filter input {
+  margin-left: 0.5rem;
+  display: inline-block;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+table.dataTable thead > tr > th:active,
+table.dataTable thead > tr > td:active {
+  outline: none;
+}
+
+table.dataTable > tbody + thead {
+  display: none;
+}

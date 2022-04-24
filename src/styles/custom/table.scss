@@ -1,0 +1,53 @@
+.table td {
+  border-top: 1px solid rgb(229, 229, 234);
+}
+
+.table-list {
+  background-color: rgb(248, 249, 249);
+  border: 1px solid rgb(229, 229, 234);
+  border-top: none;
+  margin-bottom: 0px;
+}
+
+.table .thead-light th {
+  background-color: #e4e7ea;
+  color: rgb(135, 140, 144);
+  border-color: #c8ced3;
+}
+
+.table-list .thead-light th {
+  background-color: rgb(248, 249, 249);
+}
+
+.table-list thead th {
+  vertical-align: bottom;
+  border: none;
+}
+
+.table-list + nav .pagination {
+  padding-top: 10px;
+  margin-bottom: 0px;
+  float: right;
+}
+
+table .table-list-title {
+  caption-side: top;
+  background-color: #fff;
+}
+
+.table-list-title {
+  border: 1px solid rgb(229, 229, 234);
+  border-bottom: none;
+  padding: 5px 12px 0px 12px;
+}
+
+.table-list-title p {
+  display: inline;
+}
+
+.table-list-footer {
+  background-color: #f8f9f9;
+  border: 1px solid #e5e5ea;
+  border-top: none;
+  padding: 10px;
+}
