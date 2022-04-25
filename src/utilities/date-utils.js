@@ -1,6 +1,7 @@
 function format(date) {
-  const month = date.getMonth() + 1;
-  return month + "/" + date.getDate() + "/" + date.getFullYear();
+  const dateParsed = new Date(Date.parse(date));
+  const month = dateParsed.getMonth() + 1;
+  return month + "/" + dateParsed.getDate() + "/" + dateParsed.getFullYear();
 }
 
 export default {

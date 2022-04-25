@@ -1,4 +1,4 @@
-import { Input } from "components/base";
+import { DatePicker, Input } from "components/base";
 import { ContactUpdateForm } from "components/Contact";
 import { mount } from "enzyme";
 import { createBrowserHistory } from "history";
@@ -66,7 +66,7 @@ describe("ContactUpdateForm Component", () => {
       id: 1,
       firstName: "First",
       lastName: "Last",
-      birthDate: "10/1/1990",
+      birthDate: new Date(),
       address: "123 code rd Denver, CO 71010",
       email: "test@test.com",
       phoneNumber: "444-123-1234",
@@ -81,13 +81,15 @@ describe("ContactUpdateForm Component", () => {
 
     // Assert
     const displayInfo = wrapper.find(Input);
-    expect(displayInfo).toHaveLength(6);
+    expect(displayInfo).toHaveLength(5);
     expect(displayInfo.at(0).props().value).toBe(contact.firstName);
     expect(displayInfo.at(1).props().value).toBe(contact.lastName);
-    expect(displayInfo.at(2).props().value).toBe(contact.birthDate);
-    expect(displayInfo.at(3).props().value).toBe(contact.address);
-    expect(displayInfo.at(4).props().value).toBe(contact.email);
-    expect(displayInfo.at(5).props().value).toBe(contact.phoneNumber);
+    expect(displayInfo.at(2).props().value).toBe(contact.address);
+    expect(displayInfo.at(3).props().value).toBe(contact.email);
+    expect(displayInfo.at(4).props().value).toBe(contact.phoneNumber);
+    const dateInfo = wrapper.find(DatePicker);
+    expect(dateInfo).toHaveLength(1);
+    expect(dateInfo.at(0).props().value).toBeTruthy();
   });
 
   it("when cancel button is clicked should be redirected to contacts page", async () => {
@@ -142,9 +144,6 @@ describe("ContactUpdateForm Component", () => {
     // Assert
     const firstNameInputField = wrapper.find({ id: "firstName" });
     const lastNameInputField = wrapper.find({ id: "lastName" });
-    const birthDateInputField = wrapper.find({
-      id: "birthDate",
-    });
     const addressInputField = wrapper.find({
       id: "address",
     });
@@ -158,7 +157,7 @@ describe("ContactUpdateForm Component", () => {
       className: "invalid-feedback",
     });
 
-    expect(inputFieldFeedback).toHaveLength(6);
+    expect(inputFieldFeedback).toHaveLength(5);
     expect(firstNameInputField.props().className).toMatch("is-invalid");
     expect(inputFieldFeedback.at(0).props().children).toBe(
       "First Name is a required field"
@@ -167,20 +166,16 @@ describe("ContactUpdateForm Component", () => {
     expect(inputFieldFeedback.at(1).props().children).toBe(
       "Last Name is a required field"
     );
-    expect(birthDateInputField.props().className).toMatch("is-invalid");
-    expect(inputFieldFeedback.at(2).props().children).toBe(
-      "Birth Date is a required field"
-    );
     expect(addressInputField.props().className).toMatch("is-invalid");
-    expect(inputFieldFeedback.at(3).props().children).toBe(
+    expect(inputFieldFeedback.at(2).props().children).toBe(
       "Address is a required field"
     );
     expect(emailInputField.props().className).toMatch("is-invalid");
-    expect(inputFieldFeedback.at(4).props().children).toBe(
+    expect(inputFieldFeedback.at(3).props().children).toBe(
       "Email is a required field"
     );
     expect(phoneNumberInputField.props().className).toMatch("is-invalid");
-    expect(inputFieldFeedback.at(5).props().children).toBe(
+    expect(inputFieldFeedback.at(4).props().children).toBe(
       "Phone number is invalid. Should follow format: XXX-XXX-XXXX"
     );
   });
@@ -249,12 +244,14 @@ describe("ContactUpdateForm Component", () => {
 
     // Assert
     const inputFields = wrapper.find(Input);
-    expect(inputFields).toHaveLength(6);
+    expect(inputFields).toHaveLength(5);
     expect(inputFields.at(0).props().value).toBe(firstNameEvent.target.value);
     expect(inputFields.at(1).props().value).toBe(contact.lastName);
-    expect(inputFields.at(2).props().value).toBe(contact.birthDate);
-    expect(inputFields.at(3).props().value).toBe(addressEvent.target.value);
-    expect(inputFields.at(4).props().value).toBe(emailEvent.target.value);
-    expect(inputFields.at(5).props().value).toBe(contact.phoneNumber);
+    expect(inputFields.at(2).props().value).toBe(addressEvent.target.value);
+    expect(inputFields.at(3).props().value).toBe(emailEvent.target.value);
+    expect(inputFields.at(4).props().value).toBe(contact.phoneNumber);
+    const dateInfo = wrapper.find(DatePicker);
+    expect(dateInfo).toHaveLength(1);
+    expect(dateInfo.at(0).props().value).toBeTruthy();
   });
 });

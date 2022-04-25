@@ -1,18 +1,19 @@
-import { Input } from "components/base";
+import { DatePicker, Input } from "components/base";
 import { useForm } from "hooks";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { dateUtils } from "utilities";
 import { contactService } from "services";
-import { number, string } from "yup";
+import { number, string, date } from "yup";
 
 const ContactUpdateForm = ({ match, history }) => {
   const INITIAL_STATE = {
     id: 0,
     firstName: "",
     lastName: "",
-    birthDate: "",
+    birthDate: new Date(),
     address: "",
     email: "",
     phoneNumber: "",
@@ -29,7 +30,7 @@ const ContactUpdateForm = ({ match, history }) => {
       .matches(/^[a-zA-Z ]{1,200}$/, `\${label} should only contain letters`)
       .required()
       .label("Last Name"),
-    birthDate: string().required().max(10).label("Birth Date"),
+    birthDate: date().required().label("Birth Date"),
     address: string().required().max(100).label("Address"),
     email: string().required().email().label("Email"),
     phoneNumber: string()
@@ -57,6 +58,14 @@ const ContactUpdateForm = ({ match, history }) => {
     fetchContact();
   }, [history, match.params.id]);
 
+  const handleOnSelection = (date) => {
+    const data = { ...formData };
+
+    data.birthDate = dateUtils.format(date);
+    validateProperty({ name: "birthDate", value: data.birthDate });
+    setFormData(data);
+  };
+
   function cancelEdit(e) {
     e.preventDefault();
 
@@ -68,6 +77,7 @@ const ContactUpdateForm = ({ match, history }) => {
   const onSubmit = async () => {
     const data = { ...values };
     try {
+      data.birthDate = dateUtils.format(values.birthDate);
       await contactService.update(data);
       setFormData(data);
       setPreviousFormData(data);
@@ -78,11 +88,8 @@ const ContactUpdateForm = ({ match, history }) => {
     }
   };
 
-  const { values, errors, handleOnChange, handleOnSubmit } = useForm(
-    formData,
-    schema,
-    onSubmit
-  );
+  const { values, errors, handleOnChange, handleOnSubmit, validateProperty } =
+    useForm(formData, schema, onSubmit);
 
   return (
     <div className="animated fadeIn">
@@ -123,16 +130,10 @@ const ContactUpdateForm = ({ match, history }) => {
                     />
                   </Form.Group>
                   <Form.Group className="mb-4">
-                    <Form.Label htmlFor="birthDate">
-                      <strong>Birth Date:</strong>
-                    </Form.Label>
-                    <Input
+                    <DatePicker
                       name="birthDate"
-                      value={values.birthDate}
-                      error={errors.birthDate}
-                      onChange={handleOnChange}
-                      type="text"
-                      placeholder="Birth Date"
+                      value={new Date(values.birthDate)}
+                      onChange={(date) => handleOnSelection(date)}
                     />
                   </Form.Group>
                   <Form.Group className="mb-4">

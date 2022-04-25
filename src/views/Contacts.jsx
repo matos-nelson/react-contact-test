@@ -74,7 +74,7 @@ const Contacts = ({ history, ...props }) => {
   };
 
   const handleOnSelection = (date) => {
-    const data = { ...formData };
+    const data = { ...values };
 
     data.birthDate = dateUtils.format(date);
     validateProperty({ name: "birthDate", value: data.birthDate });
