@@ -1,6 +1,6 @@
 import React from "react";
 import { ToastContainer } from "react-toastify";
-import { Header, Sidebar, Content, AsideMenu, Footer } from "./index";
+import { Header, Sidebar, Content, Footer } from "./index";
 
 function Layout() {
   return (
@@ -10,7 +10,6 @@ function Layout() {
       <div className="app-body">
         <Sidebar />
         <Content />
-        <AsideMenu />
       </div>
       <Footer />
     </div>
