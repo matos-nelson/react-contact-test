@@ -9,7 +9,7 @@ describe("ContactModalForm Component", () => {
     let contact = {
       firstName: "",
       lastName: "",
-      birthDate: "",
+      birthDate: new Date(),
       address: "",
       email: "",
       phoneNumber: "",

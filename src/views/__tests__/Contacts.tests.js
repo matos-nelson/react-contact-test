@@ -189,7 +189,7 @@ describe("Contacts View Component", () => {
     const newContact = {
       firstName: "NewFirst",
       lastName: "NewLastLast",
-      birthDate: "10/1/1990",
+      birthDate: new Date(),
       address: "123 code rd Denver, CO 71010",
       email: "new@contact.com",
       phoneNumber: "444-123-1234",
@@ -206,13 +206,6 @@ describe("Contacts View Component", () => {
         name: "lastName",
         value: newContact.lastName,
         getAttribute: jest.fn(() => "lastName"),
-      },
-    };
-    const birthDateEvent = {
-      target: {
-        name: "birthDate",
-        value: newContact.birthDate,
-        getAttribute: jest.fn(() => "birthDate"),
       },
     };
     const addressEvent = {
@@ -255,10 +248,6 @@ describe("Contacts View Component", () => {
       .simulate("change", lastNameEvent);
     wrapper
       .find("input")
-      .find({ name: birthDateEvent.target.name })
-      .simulate("change", birthDateEvent);
-    wrapper
-      .find("input")
       .find({ name: addressEvent.target.name })
       .simulate("change", addressEvent);
     wrapper
@@ -285,9 +274,9 @@ describe("Contacts View Component", () => {
     expect(tableBody.props().children[0].props.children[1].props.children).toBe(
       newContact.lastName
     );
-    expect(tableBody.props().children[0].props.children[2].props.children).toBe(
-      newContact.birthDate
-    );
+    expect(
+      tableBody.props().children[0].props.children[2].props.children
+    ).toBeTruthy();
     expect(tableBody.props().children[0].props.children[3].props.children).toBe(
       newContact.address
     );

@@ -1,4 +1,4 @@
-import { Input } from "components/base";
+import { Input, DatePicker } from "components/base";
 import PropTypes from "prop-types";
 import React from "react";
 import { Button, Form, Modal } from "react-bootstrap";
@@ -9,6 +9,7 @@ const ContactModalForm = ({
   onClose,
   onChange,
   onSubmit,
+  onSelection,
   data,
   errors,
 }) => {
@@ -51,13 +52,10 @@ const ContactModalForm = ({
             <Form.Label htmlFor="birthDate">
               <strong>Birth Date:</strong>
             </Form.Label>
-            <Input
+            <DatePicker
               name="birthDate"
-              value={data.birthDate}
-              error={errors.birthDate}
-              onChange={onChange}
-              type="text"
-              placeholder="Birth Date"
+              value={new Date(data.birthDate)}
+              onChange={(date) => onSelection(date)}
             />
           </Form.Group>
           <Form.Group>

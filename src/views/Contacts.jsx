@@ -8,13 +8,14 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { contactService } from "services";
-import { string } from "yup";
+import { dateUtils } from "utilities";
+import { string, date } from "yup";
 
 const Contacts = ({ history, ...props }) => {
   const INITIAL_STATE = {
     firstName: "",
     lastName: "",
-    birthDate: "",
+    birthDate: new Date(),
     address: "",
     email: "",
     phoneNumber: "",
@@ -34,7 +35,7 @@ const Contacts = ({ history, ...props }) => {
       .matches(/^[a-zA-Z ]{1,200}$/, `\${label} should only contain letters`)
       .required()
       .label("Last Name"),
-    birthDate: string().required().max(10).label("Birth Date"),
+    birthDate: date().required().label("Birth Date"),
     address: string().required().max(100).label("Address"),
     email: string().required().email().label("Email"),
     phoneNumber: string()
@@ -72,6 +73,14 @@ const Contacts = ({ history, ...props }) => {
     setContactToShow(objectToShow);
   };
 
+  const handleOnSelection = (date) => {
+    const data = { ...formData };
+
+    data.birthDate = dateUtils.format(date);
+    validateProperty({ name: "birthDate", value: data.birthDate });
+    setFormData(data);
+  };
+
   const handleOnDelete = async (id) => {
     try {
       await contactService.deleteContact(id);
@@ -86,21 +95,18 @@ const Contacts = ({ history, ...props }) => {
   const onSubmit = async () => {
     try {
       const newContact = { ...values };
+      newContact.birthDate = dateUtils.format(values.birthDate);
       await contactService.createContact(newContact);
 
       const contacts = await contactService.getContacts();
       setContacts([...contacts]);
-
       handleClose();
       toast.success("A new contact was successfully added!");
     } catch {}
   };
 
-  const { values, errors, handleOnChange, handleOnSubmit } = useForm(
-    formData,
-    schema,
-    onSubmit
-  );
+  const { values, errors, handleOnChange, handleOnSubmit, validateProperty } =
+    useForm(formData, schema, onSubmit);
 
   return (
     <div className="animated fadeIn">
@@ -124,6 +130,7 @@ const Contacts = ({ history, ...props }) => {
               onSubmit={handleOnSubmit}
               onClose={handleClose}
               onChange={handleOnChange}
+              onSelection={handleOnSelection}
               data={values}
               errors={errors}
             />

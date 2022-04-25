@@ -80,7 +80,14 @@ function useForm(stateSchema, validationSchema, callback) {
     [errors, validateProperty, trackOnChange]
   );
 
-  return { values, errors, handleOnChange, trackOnChange, handleOnSubmit };
+  return {
+    values,
+    errors,
+    handleOnChange,
+    trackOnChange,
+    handleOnSubmit,
+    validateProperty,
+  };
 }
 
 export default useForm;
