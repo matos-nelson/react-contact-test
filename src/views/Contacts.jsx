@@ -83,7 +83,8 @@ const Contacts = ({ history, ...props }) => {
 
   const handleOnDelete = async (id) => {
     try {
-      await contactService.deleteContact(id);
+      const contacts = await contactService.deleteContact(id);
+      setContacts([...contacts]);
       history.push("/contacts");
       handleClose();
       toast.success("Successfully deleted contact!");

@@ -35,6 +35,7 @@ async function deleteContact(id) {
   }
 
   contacts.splice(index, 1);
+  return contacts;
 }
 
 export default {
